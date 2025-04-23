@@ -1,104 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<PropertyGroup>
-		<MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
-		<VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
-		<Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
-		<Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
-		<SchemaVersion>2.0</SchemaVersion>
-		<ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-		<ProjectGuid>{D8D8ADCB-9FA1-4877-90C3-0FE53CA6F301}</ProjectGuid>
-		<OutputType>Library</OutputType>
-		<AppDesignerFolder>Properties</AppDesignerFolder>
-		<RootNamespace>FolderCsFileOpener</RootNamespace>
-		<AssemblyName>FolderCsFileOpener</AssemblyName>
-		<TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-		<GeneratePkgDefFile>true</GeneratePkgDefFile>
-		<IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
-
-		<CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
-		<CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
-		<StartAction>Program</StartAction>
-		<StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
-		<StartArguments>/rootsuffix Exp</StartArguments>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-		<DebugSymbols>true</DebugSymbols>
-		<DebugType>full</DebugType>
-		<Optimize>false</Optimize>
-		<OutputPath>bin\Debug\</OutputPath>
-		<DefineConstants>DEBUG;TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-	<PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-		<DebugType>pdbonly</DebugType>
-		<Optimize>true</Optimize>
-		<OutputPath>bin\Release\</OutputPath>
-		<DefineConstants>TRACE</DefineConstants>
-		<ErrorReport>prompt</ErrorReport>
-		<WarningLevel>4</WarningLevel>
-		<Prefer32Bit>false</Prefer32Bit>
-	</PropertyGroup>
-	<ItemGroup>
-		<Compile Include="FolderOpenCommand.cs" />
-		<Compile Include="FolderCsFileOpenerPackage.cs" />
-		<Compile Include="Properties\AssemblyInfo.cs" />
-		<Compile Include="Language\Resource.Designer.cs">
-			<AutoGen>True</AutoGen>
-			<DesignTime>True</DesignTime>
-			<DependentUpon>Resource.resx</DependentUpon>
-		</Compile>
-	</ItemGroup>
-	<!-- 2) VSCTCompile: 메뉴 → CTM 생성 시 반드시 여기에 Strings/SupportedCultures 를 지정 -->
-	<ItemGroup>
-		<VSCTCompile Include="FolderCsFileOpener.vsct">
-			<ResourceName>Menus.ctmenu</ResourceName>
-			<!-- 이 한 줄이 없으면 VSCTCompile 자체가 <Strings>를 CTM 에 병합하지 않습니다! -->
-			<Strings>Language\Resource.resx</Strings>
-			<!-- 지원할 문화권을 세미콜론으로 구분 -->
-			<SupportedCultures>en-US;ko-KR</SupportedCultures>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</VSCTCompile>
-	</ItemGroup>
-	<!-- 3) 리소스 (.resx → 위성 어셈블리) -->
-	<ItemGroup>
-		<!-- Neutral 언어(영어) -->
-		<EmbeddedResource Include="Language\Resource.resx">
-			<Generator>ResXFileCodeGenerator</Generator>
-			<LastGenOutput>Resource.Designer.cs</LastGenOutput>
-		</EmbeddedResource>
-		<!-- 한국어 위성 리소스 -->
-		<EmbeddedResource Include="Language\Resource.en-US.resx">
-			<DependentUpon>Resource.resx</DependentUpon>
-		</EmbeddedResource>
-		<!-- 한국어 위성 리소스 -->
-		<EmbeddedResource Include="Language\Resource.ko-KR.resx">
-			<DependentUpon>Resource.resx</DependentUpon>
-		</EmbeddedResource>
-	</ItemGroup>
-	<!-- 4) 아이콘 포함 -->
-	<ItemGroup>
-		<Content Include="Images\bulkedit.bmp">
-			<IncludeInVSIX>true</IncludeInVSIX>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</Content>
-	</ItemGroup>
-	<ItemGroup>
-		<None Include="source.extension.vsixmanifest">
-			<SubType>Designer</SubType>
-			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
-		</None>
-	</ItemGroup>
-	<ItemGroup>
-		<Reference Include="System" />
-		<Reference Include="System.Design" />
-	</ItemGroup>
-	<ItemGroup>
-		<PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" />
-		<PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.13.2126" />
-	</ItemGroup>
-	<Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-	<Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>17.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <Configuration Condition="'$(Configuration)' == ''">Debug</Configuration>
+    <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{D8D8ADCB-9FA1-4877-90C3-0FE53CA6F301}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FolderCsFileOpener</RootNamespace>
+    <AssemblyName>FolderCsFileOpener</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>true</CopyOutputSymbolsToOutputDirectory>
+    <StartAction>Program</StartAction>
+    <StartProgram Condition="'$(DevEnvDir)' != ''">$(DevEnvDir)devenv.exe</StartProgram>
+    <StartArguments>/rootsuffix Exp</StartArguments>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="FolderOpenCommand.cs" />
+    <Compile Include="FolderCsFileOpenerPackage.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Language\Resource.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resource.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- 2) VSCTCompile: 메뉴 → CTM 생성 시 반드시 여기에 Strings/SupportedCultures 를 지정 -->
+  <ItemGroup>
+    <VSCTCompile Include="FolderCsFileOpener.vsct">
+      <ResourceName>Menus.ctmenu</ResourceName>
+      <!-- 이 한 줄이 없으면 VSCTCompile 자체가 <Strings>를 CTM 에 병합하지 않습니다! -->
+      <Strings>Language\Resource.resx</Strings>
+      <!-- 지원할 문화권을 세미콜론으로 구분 -->
+      <SupportedCultures>en-US;ko-KR</SupportedCultures>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </VSCTCompile>
+  </ItemGroup>
+  <!-- 3) 리소스 (.resx → 위성 어셈블리) -->
+  <ItemGroup>
+    <!-- Neutral 언어(영어) -->
+    <EmbeddedResource Include="Language\Resource.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <!-- 한국어 위성 리소스 -->
+    <EmbeddedResource Include="Language\Resource.en-US.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+    <!-- 한국어 위성 리소스 -->
+    <EmbeddedResource Include="Language\Resource.ko-KR.resx">
+      <DependentUpon>Resource.resx</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
+  <!-- 4) 아이콘 포함 -->
+  <ItemGroup>
+    <Content Include="Images\bulkedit.bmp">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Images\bulkeditIcon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Design" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.SDK" Version="17.0.32112.339" ExcludeAssets="runtime" />
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.13.2126" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
 </Project>
